@@ -7,8 +7,9 @@
 //
 
 #import "ViewController.h"
-
+#import "YUHoriView.h"
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet YUHoriView *v;
 
 @end
 
@@ -16,6 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _v.titles = [[NSMutableArray alloc]initWithArray:@[@"abcdsdsd",@"efg",@"efg",@"efg"]];
+    [_v refresh];
+    _v.titles = [[NSMutableArray alloc]initWithArray:@[@"肥仔水",@"计生用品避孕套",@"美妆",@"男装",@"童装",@"男鞋",@"厨房用品"]];
+    [_v refresh];
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
