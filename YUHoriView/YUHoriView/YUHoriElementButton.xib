@@ -22,11 +22,6 @@
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mCY-K1-ofe">
-                    <rect key="frame" x="5" y="29" width="50" height="7"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z4u-Iw-7Yz">
                     <rect key="frame" x="0.0" y="0.0" width="60" height="41"/>
                     <connections>
@@ -44,7 +39,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="titleLabel" destination="FiN-AA-DAf" id="xpX-UB-tf0"/>
-                <outlet property="underlineView" destination="mCY-K1-ofe" id="QLX-Eq-mbW"/>
             </connections>
             <point key="canvasLocation" x="-133" y="-261.5"/>
         </view>

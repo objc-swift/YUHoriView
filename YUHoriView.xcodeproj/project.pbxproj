@@ -19,6 +19,8 @@
 		3C3948EB20F5F5DD007367CF /* YUHoriView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3948EA20F5F5DD007367CF /* YUHoriView.m */; };
 		3C3948EE20F6024C007367CF /* YUHoriElementButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3948ED20F6024C007367CF /* YUHoriElementButton.m */; };
 		3C3948F020F6030D007367CF /* YUHoriElementButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C3948EF20F6030D007367CF /* YUHoriElementButton.xib */; };
+		3C39490820F75ACA007367CF /* YUHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C39490620F75ACA007367CF /* YUHomePageViewController.m */; };
+		3C39490920F75ACA007367CF /* YUHomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C39490720F75ACA007367CF /* YUHomePageViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,9 @@
 		3C3948EC20F6024C007367CF /* YUHoriElementButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YUHoriElementButton.h; sourceTree = "<group>"; };
 		3C3948ED20F6024C007367CF /* YUHoriElementButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YUHoriElementButton.m; sourceTree = "<group>"; };
 		3C3948EF20F6030D007367CF /* YUHoriElementButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YUHoriElementButton.xib; sourceTree = "<group>"; };
+		3C39490520F75ACA007367CF /* YUHomePageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YUHomePageViewController.h; sourceTree = "<group>"; };
+		3C39490620F75ACA007367CF /* YUHomePageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YUHomePageViewController.m; sourceTree = "<group>"; };
+		3C39490720F75ACA007367CF /* YUHomePageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YUHomePageViewController.xib; sourceTree = "<group>"; };
 		D826DFDF985523DDF3C7E9B2 /* libPods-YUHoriView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YUHoriView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -134,6 +139,9 @@
 				3C3948C120F5F4EF007367CF /* LaunchScreen.storyboard */,
 				3C3948C420F5F4EF007367CF /* Info.plist */,
 				3C3948C520F5F4EF007367CF /* main.m */,
+				3C39490520F75ACA007367CF /* YUHomePageViewController.h */,
+				3C39490620F75ACA007367CF /* YUHomePageViewController.m */,
+				3C39490720F75ACA007367CF /* YUHomePageViewController.xib */,
 			);
 			path = YUHoriView;
 			sourceTree = "<group>";
@@ -284,6 +292,7 @@
 				3C3948C320F5F4EF007367CF /* LaunchScreen.storyboard in Resources */,
 				3C3948C020F5F4EF007367CF /* Assets.xcassets in Resources */,
 				3C3948F020F6030D007367CF /* YUHoriElementButton.xib in Resources */,
+				3C39490920F75ACA007367CF /* YUHomePageViewController.xib in Resources */,
 				3C3948BE20F5F4EE007367CF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,6 +341,7 @@
 			files = (
 				3C3948EE20F6024C007367CF /* YUHoriElementButton.m in Sources */,
 				3C3948BB20F5F4EE007367CF /* ViewController.m in Sources */,
+				3C39490820F75ACA007367CF /* YUHomePageViewController.m in Sources */,
 				3C3948C620F5F4EF007367CF /* main.m in Sources */,
 				3C3948EB20F5F5DD007367CF /* YUHoriView.m in Sources */,
 				3C3948B820F5F4EE007367CF /* AppDelegate.m in Sources */,

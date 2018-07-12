@@ -11,9 +11,9 @@
 @interface YUHoriView : UIView
 @property (strong,nonatomic) NSMutableArray *titles;
 @property (assign,nonatomic) int defaultButtonPos;
+@property (assign,nonatomic) CGFloat span;
 
 - (void)setUpByTitles:(NSMutableArray *)titles defaultButtonPos:(int)pos ;
-
-
+- (void)selectPos:(int)pos;
 - (void)refresh;
 @end

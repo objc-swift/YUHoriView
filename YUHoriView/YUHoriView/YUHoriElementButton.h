@@ -10,12 +10,9 @@
 
 @interface YUHoriElementButton : UIView
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIView *underlineView;
 @property (assign,nonatomic) int pos;
 @property (strong,nonatomic) void (^onTap)(YUHoriElementButton *sender ,int pos);
 
-- (void)showUnderLine;
-- (void)hideUnderLine;
 
 + (instancetype)xib_YUHoriElementButton;
 

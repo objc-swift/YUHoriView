@@ -14,14 +14,12 @@
 
 #define cOff  [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1]
 #define cOn   [UIColor colorWithRed:255/255.0 green:51/255.0 blue:0 alpha:1]
-
+#define dSpan 10
 @interface YUHoriView()<UIScrollViewDelegate>
 @property (strong,nonatomic) UIScrollView *scrollview;
 @property (strong,nonatomic) NSMutableArray *buttons;
 @property (strong,nonatomic) YUHoriElementButton *curButton;
 @property (strong,nonatomic) UIView *movLine;
-@property (assign,nonatomic) CGPoint moveLineDes; // 移动的目的 (-1 ,-1) 无目的地
-
 @end
 
 @implementation YUHoriView
@@ -74,9 +72,8 @@
 }
 #pragma mark Init
 - (void)initSelfSetting {
-    self.backgroundColor = [UIColor redColor];
-    self.moveLineDes = CGPointMake(-1, -1);
     self.clipsToBounds = YES;
+    self.span = dSpan;
     
 }
 
@@ -113,8 +110,7 @@
     [self buttonsEventSetting];
     NSAssert(self.defaultButtonPos >=0 && self.defaultButtonPos< self.buttons.count, @"#defaultButtonPos 错误，defaultButtonPos 的范围是否在 [0,titles.count-1] 中") ;
     [self layoutIfNeeded];
-    self.curButton = self.buttons[self.defaultButtonPos];
-    self.curButton.onTap(self.curButton, self.curButton.pos);
+    [self selectPos:self.defaultButtonPos];
     
 }
 
@@ -152,16 +148,9 @@
         [self.buttons addObject:btn]; // 将按钮保存起来，以便之后做清理工作
         [btn.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             // titlelabel ～ 标题标签的约束
-            make.leading.equalTo(btn).with.offset(5);
-            make.trailing.equalTo(btn).with.offset(-5);
+            make.leading.equalTo(btn).with.offset(self.span / 2.0);
+            make.trailing.equalTo(btn).with.offset(-self.span / 2.0);
             make.centerY.equalTo(btn);
-        }];
-        [btn.underlineView mas_makeConstraints:^(MASConstraintMaker *make) {
-            // 下划线的约束
-            make.height.equalTo(@2);
-            make.width.equalTo(@23);
-            make.top.equalTo(btn.titleLabel.mas_bottom).with.offset(9);
-            make.centerX.equalTo(btn.titleLabel);
         }];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
             //按钮的约束
@@ -177,7 +166,13 @@
         make.trailing.equalTo(@0);
     }];
 }
-
+- (void)selectPos:(int)pos {
+    
+    NSAssert(pos >=0 && pos< self.buttons.count, @"#Pos 错误，Pos 的范围是否在 [0,titles.count-1] 中") ;
+    [self layoutIfNeeded];
+    YUHoriElementButton *hbtn =     _buttons[pos];
+    hbtn.onTap(hbtn, hbtn.pos);
+}
 /**
     更新下滑线的位置
  */
