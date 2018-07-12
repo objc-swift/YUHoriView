@@ -2,7 +2,7 @@
 //  YUHoriView.m
 //  YUHoriView
 //
-//  Created by jimi on 2018/7/11.
+//  Created by objc94~yxy on 2018/7/11.
 //  Copyright © 2018 YU. All rights reserved.
 //
 
@@ -10,17 +10,25 @@
 #import "YUHoriView.h"
 #import "YUHoriElementButton.h"
 #import <Masonry.h>
-@interface YUHoriView()
 
+
+#define cOff  [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1]
+#define cOn   [UIColor colorWithRed:255/255.0 green:51/255.0 blue:0 alpha:1]
+
+@interface YUHoriView()<UIScrollViewDelegate>
 @property (strong,nonatomic) UIScrollView *scrollview;
 @property (strong,nonatomic) NSMutableArray *buttons;
+@property (strong,nonatomic) YUHoriElementButton *curButton;
+@property (strong,nonatomic) UIView *movLine;
+@property (assign,nonatomic) CGPoint moveLineDes; // 移动的目的 (-1 ,-1) 无目的地
 
 @end
 
 @implementation YUHoriView
-//  #pragma mark System ------> 系统方法
+//  #pragma mark System ------> 系统方法/系统控件的代理
 //  #pragma mark Init   ------> 初始化方法
-//  #pragma mark View Logic --> 视图逻辑
+//  #pragma mark View Logic --> 视图逻辑/自定义控件的代理
+//  #pragma mark Event Setting -> 事件设置
 //  #pragma mark Lazy Load  --> 懒加载
 
 #pragma mark System
@@ -55,15 +63,30 @@
  */
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
+}
+
+/**
+    scrollview 发送滚动时系统会调用此方法
+ */
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self updateUnderLinePos];
 }
 #pragma mark Init
 - (void)initSelfSetting {
     self.backgroundColor = [UIColor redColor];
+    self.moveLineDes = CGPointMake(-1, -1);
+    self.clipsToBounds = YES;
     
 }
 
 - (void)initSubViews {
     [self addSubview:self.scrollview];
+    [self addSubview:self.movLine];
+    self.scrollview.delegate = self;
+    self.scrollview.showsHorizontalScrollIndicator = NO;
+    self.scrollview.showsVerticalScrollIndicator = NO;
+    [self.movLine setBackgroundColor:[UIColor colorWithRed:1.0 green:51/255.0 blue:0 alpha:1]];
 }
 
 - (void)initSubViewAutoLayout {
@@ -75,6 +98,11 @@
         make.height.equalTo(wsf);
     }];
 }
+- (void)setUpByTitles:(NSMutableArray *)titles defaultButtonPos:(int)pos {
+    self.titles = titles;
+    self.defaultButtonPos = pos;
+    
+}
 #pragma mark View Logic
 /**
     重新刷新布局界面
@@ -82,6 +110,12 @@
 - (void)refresh {
     [self resetButtons];
     [self makeButtonsByTitles];
+    [self buttonsEventSetting];
+    NSAssert(self.defaultButtonPos >=0 && self.defaultButtonPos< self.buttons.count, @"#defaultButtonPos 错误，defaultButtonPos 的范围是否在 [0,titles.count-1] 中") ;
+    [self layoutIfNeeded];
+    self.curButton = self.buttons[self.defaultButtonPos];
+    self.curButton.onTap(self.curButton, self.curButton.pos);
+    
 }
 
 /**
@@ -103,31 +137,35 @@
     __weak typeof (self)wsf = self;
     UIView *zeroView = [[UIView alloc]init];
     [self.scrollview addSubview:zeroView];
-  
     [zeroView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@0);
         make.height.equalTo(@0);
         make.leading.top.equalTo(@0);
     }];
     UIView *lastView = zeroView;
+    int pos = 0 ;
     for( NSString *title in _titles ) {
         YUHoriElementButton *btn =[YUHoriElementButton xib_YUHoriElementButton];
+        btn.pos = pos++;
         [btn.titleLabel setText:title];
         [self.scrollview addSubview:btn]; //加入到scrollview
         [self.buttons addObject:btn]; // 将按钮保存起来，以便之后做清理工作
         [btn.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            // titlelabel ～ 标题标签的约束
             make.leading.equalTo(btn).with.offset(5);
             make.trailing.equalTo(btn).with.offset(-5);
-            make.top.equalTo(btn).with.offset(0);
+            make.centerY.equalTo(btn);
         }];
         [btn.underlineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            // 下划线的约束
             make.height.equalTo(@2);
             make.width.equalTo(@23);
             make.top.equalTo(btn.titleLabel.mas_bottom).with.offset(9);
             make.centerX.equalTo(btn.titleLabel);
         }];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.leading.equalTo(lastView.mas_trailing).with.offset(1);
+            //按钮的约束
+            make.leading.equalTo(lastView.mas_trailing).with.offset(0);
             make.top.equalTo(wsf.scrollview);
             make.height.equalTo(wsf.scrollview);
         }];
@@ -140,8 +178,47 @@
     }];
 }
 
-#pragma mark Lazy Load
+/**
+    更新下滑线的位置
+ */
+- (void)updateUnderLinePos {
+    CGPoint curBtnCenter = CGPointMake(self.curButton.frame.size.width / 2.0, self.curButton.frame.size.height / 2.0 + 15) ;
+    CGPoint desPt = [self.curButton convertPoint:curBtnCenter toView:self];
+    [UIView animateWithDuration:0.1 animations:^{
+        [self.movLine setCenter:desPt];
+    }];
+}
+#pragma mark Event Setting
+- (void)buttonsEventSetting {
+    __weak typeof (self)wsf = self;
+    for( YUHoriElementButton *button_i in self.buttons ) {
+        //设置第i个button的事件
+        button_i.onTap = ^(YUHoriElementButton *sender, int pos) {
+            wsf.curButton.titleLabel.textColor = cOff;
+            wsf.curButton = sender;
+            wsf.curButton.titleLabel.textColor = cOn;
+            CGFloat shouldX = sender.frame.origin.x - self.scrollview.frame.size.width / 2.0 + sender.frame.size.width / 2.0;
+            // 右侧的补偿x，offsetRight意味着 scrollview右侧被隐藏部分的宽度。
+            CGFloat offsetRight =
+            + self.scrollview.contentSize.width
+            - self.scrollview.frame.size.width
+            - shouldX;
+            CGPoint shouldPoint = CGPointMake(0, 0);
+            if( shouldX > 0 && offsetRight >0) {
+                shouldPoint = CGPointMake(shouldX, 0) ;
+            }else {
+                 if( shouldX <=0 )
+                     shouldPoint = CGPointMake(0, 0) ;
+                 if( offsetRight <=0 )
+                     shouldPoint = CGPointMake(self.scrollview.contentSize.width - self.scrollview.frame.size.width, 0);
+            }
+            [self updateUnderLinePos];
+            [wsf.scrollview setContentOffset:shouldPoint animated:YES];
+        };
+    }
+}
 
+#pragma mark Lazy Load
 - (UIScrollView *)scrollview {
     if( !_scrollview ) {
          _scrollview =  [[UIScrollView alloc]init];
@@ -154,7 +231,12 @@
         _buttons = [[NSMutableArray alloc]init];
     }
     return _buttons;
-    
+}
+- (UIView *)movLine {
+    if( !_movLine ) {
+        _movLine = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 23, 2)];
+    }
+    return _movLine;
 }
 /*
 // Only override drawRect: if you perform custom drawing.

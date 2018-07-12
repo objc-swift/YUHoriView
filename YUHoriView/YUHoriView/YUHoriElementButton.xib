@@ -29,10 +29,12 @@
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z4u-Iw-7Yz">
                     <rect key="frame" x="0.0" y="0.0" width="60" height="41"/>
-                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="tapSelf:" destination="iN0-l3-epB" eventType="touchUpInside" id="fos-Fc-ISr"/>
+                    </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="z4u-Iw-7Yz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="AGa-3A-pox"/>
                 <constraint firstAttribute="bottom" secondItem="z4u-Iw-7Yz" secondAttribute="bottom" id="Fc2-TQ-PoO"/>

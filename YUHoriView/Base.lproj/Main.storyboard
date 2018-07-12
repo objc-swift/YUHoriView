@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,16 +13,20 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="F90-Ua-Ex8"/>
+                        <viewControllerLayoutGuide type="bottom" id="3uD-OP-RYZ"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0V0-Zw-EkW" customClass="YUHoriView">
-                                <rect key="frame" x="67" y="269.5" width="240" height="128"/>
+                                <rect key="frame" x="22" y="298.5" width="330" height="70"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="8sp-zq-uk6"/>
-                                    <constraint firstAttribute="height" constant="128" id="xqe-RP-YCV"/>
+                                    <constraint firstAttribute="width" constant="330" id="M1f-CY-lGc"/>
+                                    <constraint firstAttribute="height" constant="70" id="xqe-RP-YCV"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -32,7 +35,6 @@
                             <constraint firstItem="0V0-Zw-EkW" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="i07-VX-cNT"/>
                             <constraint firstItem="0V0-Zw-EkW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pDa-wB-Q2Y"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="v" destination="0V0-Zw-EkW" id="s4Z-ca-Eik"/>
