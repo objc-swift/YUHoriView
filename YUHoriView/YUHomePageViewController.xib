@@ -64,13 +64,20 @@
                                 <constraint firstAttribute="width" constant="1" id="q7S-43-hLg"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7k-AY-Jps" userLabel="今日优选">
+                            <rect key="frame" x="0.0" y="0.0" width="50" height="45"/>
+                        </button>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="p7k-AY-Jps" firstAttribute="height" secondItem="qXg-vT-nW5" secondAttribute="height" id="8yS-3m-Pdj"/>
                         <constraint firstItem="c78-Os-P46" firstAttribute="leading" secondItem="qXg-vT-nW5" secondAttribute="leading" id="I6l-Rf-K2j"/>
+                        <constraint firstItem="p7k-AY-Jps" firstAttribute="centerY" secondItem="c78-Os-P46" secondAttribute="centerY" id="IEC-WT-uyC"/>
                         <constraint firstItem="Bgt-rw-azh" firstAttribute="leading" secondItem="fPh-0g-d7J" secondAttribute="trailing" constant="2" id="JZm-88-fVP"/>
                         <constraint firstItem="c78-Os-P46" firstAttribute="centerY" secondItem="qXg-vT-nW5" secondAttribute="centerY" id="McS-ts-1wg"/>
+                        <constraint firstItem="p7k-AY-Jps" firstAttribute="width" secondItem="c78-Os-P46" secondAttribute="width" id="P4l-W0-K7w"/>
                         <constraint firstAttribute="trailing" secondItem="YhB-ba-zrG" secondAttribute="trailing" id="aDF-46-s65"/>
                         <constraint firstItem="YhB-ba-zrG" firstAttribute="centerY" secondItem="c78-Os-P46" secondAttribute="centerY" id="dmA-M1-1Xh"/>
+                        <constraint firstItem="p7k-AY-Jps" firstAttribute="centerX" secondItem="c78-Os-P46" secondAttribute="centerX" id="f02-JI-i0j"/>
                         <constraint firstItem="Bgt-rw-azh" firstAttribute="centerY" secondItem="c78-Os-P46" secondAttribute="centerY" id="fp8-Ed-vzm"/>
                         <constraint firstItem="fPh-0g-d7J" firstAttribute="centerY" secondItem="c78-Os-P46" secondAttribute="centerY" id="gIK-S1-xiB"/>
                         <constraint firstAttribute="height" constant="45" id="h3X-Us-ll5"/>
@@ -79,6 +86,14 @@
                         <constraint firstItem="fPh-0g-d7J" firstAttribute="leading" secondItem="c78-Os-P46" secondAttribute="trailing" constant="13" id="u2W-oU-pYs"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ycl-24-NF2">
+                    <rect key="frame" x="153" y="509" width="175" height="68"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="tap:" destination="-1" eventType="touchUpInside" id="Z5I-at-nWc"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>

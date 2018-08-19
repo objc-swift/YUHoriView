@@ -70,6 +70,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self updateUnderLinePos];
 }
+
 #pragma mark Init
 - (void)initSelfSetting {
     self.clipsToBounds = YES;
@@ -110,8 +111,7 @@
     [self buttonsEventSetting];
     NSAssert(self.defaultButtonPos >=0 && self.defaultButtonPos< self.buttons.count, @"#defaultButtonPos 错误，defaultButtonPos 的范围是否在 [0,titles.count-1] 中") ;
     [self layoutIfNeeded];
-    [self selectPos:self.defaultButtonPos];
-    
+    [self selectPos:self.defaultButtonPos]; // 选择默认的按钮
 }
 
 /**
@@ -153,35 +153,48 @@
             make.centerY.equalTo(btn);
         }];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            //按钮的约束
+            //按钮的约束 ，尚未设置width ，由titlelabel 内容撑开
             make.leading.equalTo(lastView.mas_trailing).with.offset(0);
             make.top.equalTo(wsf.scrollview);
             make.height.equalTo(wsf.scrollview);
         }];
         lastView = btn;
     }
-    
     // 为了设置contentsize
     [lastView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.trailing.equalTo(@0);
     }];
 }
+
 - (void)selectPos:(int)pos {
     
     NSAssert(pos >=0 && pos< self.buttons.count, @"#Pos 错误，Pos 的范围是否在 [0,titles.count-1] 中") ;
     [self layoutIfNeeded];
-    YUHoriElementButton *hbtn =     _buttons[pos];
+    YUHoriElementButton *hbtn = _buttons[pos];
     hbtn.onTap(hbtn, hbtn.pos);
+}
+
+- (void)selectNone {
+    if ( self.curButton ) {
+        self.curButton.titleLabel.textColor = cOff;
+        self.movLine.hidden = YES;
+        
+    }
+    self.curButton = nil;
+    
 }
 /**
     更新下滑线的位置
  */
 - (void)updateUnderLinePos {
-    CGPoint curBtnCenter = CGPointMake(self.curButton.frame.size.width / 2.0, self.curButton.frame.size.height / 2.0 + 15) ;
-    CGPoint desPt = [self.curButton convertPoint:curBtnCenter toView:self];
-    [UIView animateWithDuration:0.1 animations:^{
-        [self.movLine setCenter:desPt];
-    }];
+    if( self.curButton ) {
+        self.movLine.hidden = NO;
+        CGPoint curBtnCenter = CGPointMake(self.curButton.frame.size.width / 2.0, self.curButton.frame.size.height / 2.0 + 15) ;
+        CGPoint desPt = [self.curButton convertPoint:curBtnCenter toView:self];
+        [UIView animateWithDuration:0.1 animations:^{
+            [self.movLine setCenter:desPt];
+        }];
+    }
 }
 #pragma mark Event Setting
 - (void)buttonsEventSetting {
@@ -189,6 +202,11 @@
     for( YUHoriElementButton *button_i in self.buttons ) {
         //设置第i个button的事件
         button_i.onTap = ^(YUHoriElementButton *sender, int pos) {
+            if( wsf.onPosChange ) {
+                // 位置放生改变，通知外部
+                NSString *title = wsf.titles[pos];
+                wsf.onPosChange(sender, pos,title);
+            }
             wsf.curButton.titleLabel.textColor = cOff;
             wsf.curButton = sender;
             wsf.curButton.titleLabel.textColor = cOn;
