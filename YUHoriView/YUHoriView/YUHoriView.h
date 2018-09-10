@@ -7,13 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#define cOff  [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1]
+#define cOn   [UIColor colorWithRed:255/255.0 green:51/255.0 blue:0 alpha:1]
+#define dxSpan 10
+#define dySpan 5
 @class YUHoriElementButton;
 @interface YUHoriView : UIView
-@property (strong,nonatomic) void (^onPosChange)(YUHoriElementButton *sender ,int pos,NSString *title);
+@property (strong,nonatomic) UIScrollView *scrollview;
+@property (copy,nonatomic) void (^onPosChange)(YUHoriElementButton *sender ,int pos,NSString *title);
 @property (strong,nonatomic) NSMutableArray *titles;
 @property (assign,nonatomic) int defaultButtonPos;
-@property (assign,nonatomic) CGFloat span; // 按钮与按钮之间间距 #-span-#
-
+@property (assign,nonatomic) int curPos ;
+@property (assign,nonatomic) CGFloat xSpan; // 按钮与按钮之间间距 #-span-#
+@property (assign,nonatomic) CGFloat ySpan; // 下划线与字的间距
+@property (assign,nonatomic) BOOL isAnimatingNow ;
 
 /**
  初始化参数
@@ -31,7 +39,14 @@
 - (void)selectPos:(int)pos;
 
 /**
- 熄灭所有按钮
+ 点亮某个按钮 ,不会通知外部
+ 
+ @param pos 为位置，从 0开始
+ */
+- (void)selectPosWithNONE_notify:(int)pos;
+
+/**
+ 熄灭所有按钮 ,下划线 hidden = yes
  */
 - (void)selectNone ;
 

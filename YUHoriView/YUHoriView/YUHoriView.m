@@ -1,22 +1,17 @@
 //
 //  YUHoriView.m
-//  YUHoriView
+//  YUHoriView blog :objc94.com
 //
 //  Created by objc94~yxy on 2018/7/11.
 //  Copyright © 2018 YU. All rights reserved.
-//
+//  18768492805
 
 
 #import "YUHoriView.h"
 #import "YUHoriElementButton.h"
 #import <Masonry.h>
-
-
-#define cOff  [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1]
-#define cOn   [UIColor colorWithRed:255/255.0 green:51/255.0 blue:0 alpha:1]
-#define dSpan 10
 @interface YUHoriView()<UIScrollViewDelegate>
-@property (strong,nonatomic) UIScrollView *scrollview;
+
 @property (strong,nonatomic) NSMutableArray *buttons;
 @property (strong,nonatomic) YUHoriElementButton *curButton;
 @property (strong,nonatomic) UIView *movLine;
@@ -74,10 +69,10 @@
 #pragma mark Init
 - (void)initSelfSetting {
     self.clipsToBounds = YES;
-    self.span = dSpan;
-    
-}
+    self.xSpan = dxSpan;
+    self.ySpan = dySpan;
 
+}
 - (void)initSubViews {
     [self addSubview:self.scrollview];
     [self addSubview:self.movLine];
@@ -99,7 +94,6 @@
 - (void)setUpByTitles:(NSMutableArray *)titles defaultButtonPos:(int)pos {
     self.titles = titles;
     self.defaultButtonPos = pos;
-    
 }
 #pragma mark View Logic
 /**
@@ -113,7 +107,6 @@
     [self layoutIfNeeded];
     [self selectPos:self.defaultButtonPos]; // 选择默认的按钮
 }
-
 /**
     重置按钮,清空按钮
     1. 将所有按钮视图remove
@@ -125,7 +118,6 @@
     }
     _buttons = [[NSMutableArray alloc]init];
 }
-
 /**
     根据标题数组 重新制作按钮
  */
@@ -148,8 +140,8 @@
         [self.buttons addObject:btn]; // 将按钮保存起来，以便之后做清理工作
         [btn.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             // titlelabel ～ 标题标签的约束
-            make.leading.equalTo(btn).with.offset(self.span / 2.0);
-            make.trailing.equalTo(btn).with.offset(-self.span / 2.0);
+            make.leading.equalTo(btn).with.offset(self.xSpan / 2.0);
+            make.trailing.equalTo(btn).with.offset(-self.xSpan / 2.0);
             make.centerY.equalTo(btn);
         }];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -174,14 +166,20 @@
     hbtn.onTap(hbtn, hbtn.pos);
 }
 
+- (void)selectPosWithNONE_notify:(int)pos {
+    NSAssert(pos >=0 && pos< self.buttons.count, @"#Pos 错误，Pos 的范围是否在 [0,titles.count-1] 中") ;
+    [self layoutIfNeeded];
+    YUHoriElementButton *hbtn = _buttons[pos];
+    [self buttonMoveToPos:pos sender:hbtn needNotify:NO];
+    
+}
+
 - (void)selectNone {
     if ( self.curButton ) {
         self.curButton.titleLabel.textColor = cOff;
         self.movLine.hidden = YES;
-        
     }
     self.curButton = nil;
-    
 }
 /**
     更新下滑线的位置
@@ -189,10 +187,17 @@
 - (void)updateUnderLinePos {
     if( self.curButton ) {
         self.movLine.hidden = NO;
-        CGPoint curBtnCenter = CGPointMake(self.curButton.frame.size.width / 2.0, self.curButton.frame.size.height / 2.0 + 15) ;
+        CGFloat lWidth = self.curButton.titleLabel.frame.size.width;
+        [self.movLine setFrame:CGRectMake(CGRectGetMinX(self.movLine.frame), CGRectGetMinY(self.movLine.frame), lWidth, CGRectGetHeight(self.movLine.frame))];
+        
+        CGPoint curBtnCenter = CGPointMake(self.curButton.frame.size.width / 2.0, CGRectGetMaxY(self.curButton.titleLabel.frame ) + self.ySpan) ;
         CGPoint desPt = [self.curButton convertPoint:curBtnCenter toView:self];
+        self.isAnimatingNow = YES;
         [UIView animateWithDuration:0.1 animations:^{
             [self.movLine setCenter:desPt];
+            
+        } completion:^(BOOL finished) {
+             self.isAnimatingNow = NO;
         }];
     }
 }
@@ -200,37 +205,42 @@
 - (void)buttonsEventSetting {
     __weak typeof (self)wsf = self;
     for( YUHoriElementButton *button_i in self.buttons ) {
-        //设置第i个button的事件
+        //设置第i个button的tap事件
         button_i.onTap = ^(YUHoriElementButton *sender, int pos) {
-            if( wsf.onPosChange ) {
-                // 位置放生改变，通知外部
-                NSString *title = wsf.titles[pos];
-                wsf.onPosChange(sender, pos,title);
-            }
-            wsf.curButton.titleLabel.textColor = cOff;
-            wsf.curButton = sender;
-            wsf.curButton.titleLabel.textColor = cOn;
-            CGFloat shouldX = sender.frame.origin.x - self.scrollview.frame.size.width / 2.0 + sender.frame.size.width / 2.0;
-            // 右侧的补偿x，offsetRight意味着 scrollview右侧被隐藏部分的宽度。
-            CGFloat offsetRight =
-            + self.scrollview.contentSize.width
-            - self.scrollview.frame.size.width
-            - shouldX;
-            CGPoint shouldPoint = CGPointMake(0, 0);
-            if( shouldX > 0 && offsetRight >0) {
-                shouldPoint = CGPointMake(shouldX, 0) ;
-            }else {
-                 if( shouldX <=0 )
-                     shouldPoint = CGPointMake(0, 0) ;
-                 if( offsetRight <=0 )
-                     shouldPoint = CGPointMake(self.scrollview.contentSize.width - self.scrollview.frame.size.width, 0);
-            }
-            [self updateUnderLinePos];
-            [wsf.scrollview setContentOffset:shouldPoint animated:YES];
+            [wsf buttonMoveToPos:pos sender:sender needNotify:YES];
         };
     }
 }
-
+- (void)buttonMoveToPos:(int)pos sender:(YUHoriElementButton *)sender needNotify:(BOOL)needNotify {
+    
+    __weak typeof (self)wsf = self;
+    wsf.curPos = pos;
+    if( wsf.onPosChange  && needNotify ) {
+        // 位置放生改变，通知外部
+        NSString *title = wsf.titles[pos];
+        wsf.onPosChange(sender, pos,title);
+    }
+    wsf.curButton.titleLabel.textColor = cOff;
+    wsf.curButton = sender;
+    wsf.curButton.titleLabel.textColor = cOn;
+    CGFloat shouldX = sender.frame.origin.x - self.scrollview.frame.size.width / 2.0 + sender.frame.size.width / 2.0;
+    // 右侧的补偿x，offsetRight意味着 scrollview右侧被隐藏部分的宽度。
+    CGFloat offsetRight =
+    + self.scrollview.contentSize.width
+    - self.scrollview.frame.size.width
+    - shouldX;
+    CGPoint shouldPoint = CGPointMake(0, 0);
+    if( shouldX > 0 && offsetRight >0) {
+        shouldPoint = CGPointMake(shouldX, 0) ;
+    }else {
+        if( shouldX <=0 )
+            shouldPoint = CGPointMake(0, 0) ;
+        if( offsetRight <=0 )
+            shouldPoint = CGPointMake(self.scrollview.contentSize.width - self.scrollview.frame.size.width, 0);
+    }
+    [self updateUnderLinePos];
+    [wsf.scrollview setContentOffset:shouldPoint animated:YES];
+}
 #pragma mark Lazy Load
 - (UIScrollView *)scrollview {
     if( !_scrollview ) {
@@ -251,12 +261,7 @@
     }
     return _movLine;
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
+
 
 @end

@@ -22,34 +22,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0V0-Zw-EkW" customClass="YUHoriView">
-                                <rect key="frame" x="22" y="298.5" width="330" height="70"/>
+                                <rect key="frame" x="22" y="90" width="330" height="70"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="330" id="M1f-CY-lGc"/>
                                     <constraint firstAttribute="height" constant="70" id="xqe-RP-YCV"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vvL-SB-UWU">
-                                <rect key="frame" x="152" y="511" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vvL-SB-UWU">
+                                <rect key="frame" x="164.5" y="318.5" width="46" height="30"/>
+                                <state key="normal" title="上一个"/>
                                 <connections>
-                                    <action selector="btn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ecY-uP-xYM"/>
+                                    <action selector="last:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9c2-nW-Jz9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fOz-Yi-9nm">
+                                <rect key="frame" x="164" y="368.5" width="46" height="30"/>
+                                <state key="normal" title="下一个"/>
+                                <connections>
+                                    <action selector="next:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l61-Ce-i9X"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="0V0-Zw-EkW" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="i07-VX-cNT"/>
+                            <constraint firstItem="fOz-Yi-9nm" firstAttribute="centerX" secondItem="vvL-SB-UWU" secondAttribute="centerX" id="7BA-nS-jz8"/>
+                            <constraint firstItem="fOz-Yi-9nm" firstAttribute="top" secondItem="vvL-SB-UWU" secondAttribute="bottom" constant="20" id="ThV-hP-LDl"/>
+                            <constraint firstItem="0V0-Zw-EkW" firstAttribute="top" secondItem="F90-Ua-Ex8" secondAttribute="bottom" constant="70" id="bTE-mb-qT7"/>
                             <constraint firstItem="0V0-Zw-EkW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pDa-wB-Q2Y"/>
+                            <constraint firstItem="vvL-SB-UWU" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="rmI-US-hyP"/>
+                            <constraint firstItem="vvL-SB-UWU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="w3a-dJ-3ox"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="v" destination="0V0-Zw-EkW" id="s4Z-ca-Eik"/>
+                        <outlet property="btnsView" destination="0V0-Zw-EkW" id="GeY-Lc-j3L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
         </scene>
     </scenes>
 </document>
