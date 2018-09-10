@@ -1,7 +1,7 @@
 
 
 
-  <img src="https://github.com/objc94/YUHoriView/raw/master/README_IMG/logo.jpg" alt="YUHoriView" title="YUHoriView">
+  <img src="https://github.com/objc94/YUHoriView/raw/master/README_IMG/logo.png" alt="YUHoriView" title="YUHoriView">
 
 
 ### 使用案例
