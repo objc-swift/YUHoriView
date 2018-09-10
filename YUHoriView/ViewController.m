@@ -11,21 +11,21 @@
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet YUHoriView *btnsView;
-
-
 @end
-
 @implementation ViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // 数据标题
     _btnsView.titles = [[NSMutableArray alloc]initWithArray:@[@"肥仔水",@"计生用品避孕套",@"美妆",@"男装",@"童装",@"男鞋",@"厨房用品",@"工具",@"母婴",@"玩物",@"书籍",@"饮料",@"薯片",@"软件",@"免费吃鸡",@"书籍",@"饮料",@"薯片",@"软件",@"免费吃鸡",@"书籍",@"饮料",@"薯片",@"软件",@"免费吃鸡"]];
+    // 默认位置
     _btnsView.defaultButtonPos = 2;
+    // 位置改变的事件
     _btnsView.onPosChange = ^(YUHoriElementButton *sender, int pos, NSString *title) {
         NSLog(@"pos: %d ,title :%@",pos,title);
     };
+    // 刷新
     [_btnsView refresh];
-    // Do any additional setup after loading the view, typically from a nib.
+
 }
 - (IBAction)last:(id)sender {
     int will = _btnsView.curPos - 1;
@@ -37,10 +37,4 @@
     if( will >= _btnsView.titles.count )return;
     [_btnsView selectPos:will];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 @end
