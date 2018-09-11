@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,10 +23,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0V0-Zw-EkW" customClass="YUHoriView">
-                                <rect key="frame" x="22" y="90" width="330" height="70"/>
+                                <rect key="frame" x="31" y="90" width="313" height="70"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="330" id="M1f-CY-lGc"/>
                                     <constraint firstAttribute="height" constant="70" id="xqe-RP-YCV"/>
                                 </constraints>
                             </view>
@@ -47,8 +47,10 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fOz-Yi-9nm" firstAttribute="centerX" secondItem="vvL-SB-UWU" secondAttribute="centerX" id="7BA-nS-jz8"/>
+                            <constraint firstItem="0V0-Zw-EkW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="15" id="Qz9-iI-rQN"/>
                             <constraint firstItem="fOz-Yi-9nm" firstAttribute="top" secondItem="vvL-SB-UWU" secondAttribute="bottom" constant="20" id="ThV-hP-LDl"/>
                             <constraint firstItem="0V0-Zw-EkW" firstAttribute="top" secondItem="F90-Ua-Ex8" secondAttribute="bottom" constant="70" id="bTE-mb-qT7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0V0-Zw-EkW" secondAttribute="trailing" constant="15" id="l6n-xQ-JSk"/>
                             <constraint firstItem="0V0-Zw-EkW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pDa-wB-Q2Y"/>
                             <constraint firstItem="vvL-SB-UWU" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="rmI-US-hyP"/>
                             <constraint firstItem="vvL-SB-UWU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="w3a-dJ-3ox"/>

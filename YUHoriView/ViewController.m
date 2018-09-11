@@ -25,7 +25,6 @@
     };
     // 刷新
     [_btnsView refresh];
-
 }
 - (IBAction)last:(id)sender {
     int will = _btnsView.curPos - 1;
