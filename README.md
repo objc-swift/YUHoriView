@@ -11,7 +11,9 @@
 
 ### 演示项目
 
-<img src="https://github.com/objc94/YUHoriView/raw/master/README_IMG/demogif.gif" alt="YUHoriView" title="YUHoriView">
+![image](https://github.com/objc94/YUHoriView/raw/master/README_IMG/demogif.gif)
+
+
 
 ### 使用案例
 
