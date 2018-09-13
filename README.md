@@ -2,11 +2,14 @@
 
 
   <img src="https://github.com/objc94/YUHoriView/raw/master/README_IMG/logo.png" alt="YUHoriView" title="YUHoriView">
-[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/objc94/YUHoriView/blob/master/LICENSE)&nbsp;
-[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)&nbsp;
+<span>[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/objc94/YUHoriView/blob/master/LICENSE)&nbsp;
+[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)&nbsp;</span>
+<span>
 ![](https://img.shields.io/badge/language-oc-blue.svg)&nbsp;
-### 演示项目
+### 演示项目</span>
+<span>
 ![image](https://github.com/objc94/YUHoriView/raw/master/README_IMG/demogif.gif)
+</span>
 ### 使用案例
 ``` objective-c
     //_btnsView 为YUHoriView
