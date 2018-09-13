@@ -2,7 +2,6 @@
 
 
   <img src="https://github.com/objc94/YUHoriView/raw/master/README_IMG/logo.png" alt="YUHoriView" title="YUHoriView">
-  [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/objc94/YUHoriView/blob/master/LICENSE)&nbsp;
 
 ### 使用案例
 ``` objective-c
