@@ -50,6 +50,9 @@
 - (void)case2_code {
     YUHoriView *view =[[YUHoriView alloc]initWithFrame:CGRectMake(20, self.view.frame.size.height - 70, 200, 50)];
     view.titles =  @[@"纯代码构造",@"计生用品避孕套",@"美妆",@"男装",@"童装",@"男鞋",@"厨房用品"];
+    view.onPosChange = ^(YUHoriElementButton *sender, int pos, NSString *title) {
+        NSLog(@"pos: %d ,title :%@",pos,title);
+    };
     [view refresh];
     [self.view addSubview:view];
     _cod_btnsview = view;

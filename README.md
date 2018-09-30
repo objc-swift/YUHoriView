@@ -7,9 +7,9 @@
 
 ### 效果预览
 
-```
-<img src="https://github.com/mengxianliang/XLSlideSwitch/blob/master/GIF/4.png" width=300 height=229 />
-```
+
+<img src="https://github.com/objc94/YUHoriView/raw/master/README_IMG/demogif.gif" width=300 height=229 />
+
 
 ### 框架依赖
 
@@ -18,9 +18,12 @@ Masonry
 ### 快速上手（纯代码方式）
 
 ``` objective-c
-    YUHoriView *view =[[YUHoriView alloc]initWithFrame:CGRectMake(20, 	self.view.frame.size.height - 70, 200, 50)];
+     YUHoriView *view =[[YUHoriView alloc]initWithFrame:CGRectMake(20, self.view.frame.size.height - 70, 200, 50)];
     view.titles =  @[@"纯代码构造",@"计生用品避孕套",@"美妆",@"男装",@"童装",@"男鞋",@"厨房用品"];
-    [view refresh];
+    view.onPosChange = ^(YUHoriElementButton *sender, int pos, NSString *title) {
+        NSLog(@"pos: %d ,title :%@",pos,title);
+    };
+    [view refresh]; 
     [self.view addSubview:view];
 ```
 
@@ -28,7 +31,7 @@ Masonry
 
 拖出view之后将Custom Class 中的class改成YUHoriView
 
-
+<img src="https://github.com/objc94/YUHoriView/raw/master/README_IMG/t0.jpg"  />
 
 然后与代码中的属性相关联接即可
 
