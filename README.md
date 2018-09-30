@@ -8,7 +8,7 @@
 ### 效果预览
 
 
-<img src="https://github.com/objc94/YUHoriView/raw/master/README_IMG/demogif.gif" width=300 height=229 />
+<img src="https://github.com/objc94/YUHoriView/raw/master/README_IMG/demogif.gif"  />
 
 
 ### 框架依赖
@@ -53,4 +53,3 @@ Masonry
     // 刷新
     [_btnsView refresh];
 ```
-
