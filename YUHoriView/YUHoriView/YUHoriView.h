@@ -16,7 +16,7 @@
 @interface YUHoriView : UIView
 @property (strong,nonatomic) UIScrollView *scrollview;
 @property (copy,nonatomic) void (^onPosChange)(YUHoriElementButton *sender ,int pos,NSString *title);
-@property (strong,nonatomic) NSMutableArray *titles;
+@property (strong,nonatomic) NSArray *titles;
 @property (assign,nonatomic) int defaultButtonPos;
 @property (assign,nonatomic) int curPos ;
 @property (assign,nonatomic) CGFloat xSpan; // 按钮与按钮之间间距 #-span-#

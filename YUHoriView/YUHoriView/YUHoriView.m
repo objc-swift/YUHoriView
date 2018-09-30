@@ -188,41 +188,22 @@
     if( self.curButton ) {
         self.movLine.hidden = NO;
         CGFloat lWidth = self.curButton.titleLabel.frame.size.width;
-        [self.movLine setFrame:CGRectMake(CGRectGetMinX(self.movLine.frame), CGRectGetMinY(self.movLine.frame), lWidth, CGRectGetHeight(self.movLine.frame))];
+   
         
         CGPoint curBtnCenter = CGPointMake(self.curButton.frame.size.width / 2.0, CGRectGetMaxY(self.curButton.titleLabel.frame ) + self.ySpan) ;
         CGPoint desPt = [self.curButton convertPoint:curBtnCenter toView:self];
         self.isAnimatingNow = YES;
         [UIView animateWithDuration:0.1 animations:^{
+            [self.movLine setFrame:CGRectMake(CGRectGetMinX(self.movLine.frame), CGRectGetMinY(self.movLine.frame), lWidth, CGRectGetHeight(self.movLine.frame))];
             [self.movLine setCenter:desPt];
-            
+          
         } completion:^(BOOL finished) {
              self.isAnimatingNow = NO;
         }];
     }
 }
-#pragma mark Event Setting
-- (void)buttonsEventSetting {
-    __weak typeof (self)wsf = self;
-    for( YUHoriElementButton *button_i in self.buttons ) {
-        //设置第i个button的tap事件
-        button_i.onTap = ^(YUHoriElementButton *sender, int pos) {
-            [wsf buttonMoveToPos:pos sender:sender needNotify:YES];
-        };
-    }
-}
-- (void)buttonMoveToPos:(int)pos sender:(YUHoriElementButton *)sender needNotify:(BOOL)needNotify {
-    
-    __weak typeof (self)wsf = self;
-    wsf.curPos = pos;
-    if( wsf.onPosChange  && needNotify ) {
-        // 位置放生改变，通知外部
-        NSString *title = wsf.titles[pos];
-        wsf.onPosChange(sender, pos,title);
-    }
-    wsf.curButton.titleLabel.textColor = cOff;
-    wsf.curButton = sender;
-    wsf.curButton.titleLabel.textColor = cOn;
+
+- (void)moveToButtonWithAnimate:(YUHoriElementButton *)sender {
     CGFloat shouldX = sender.frame.origin.x - self.scrollview.frame.size.width / 2.0 + sender.frame.size.width / 2.0;
     // 右侧的补偿x，offsetRight意味着 scrollview右侧被隐藏部分的宽度。
     CGFloat offsetRight =
@@ -239,8 +220,37 @@
             shouldPoint = CGPointMake(self.scrollview.contentSize.width - self.scrollview.frame.size.width, 0);
     }
     [self updateUnderLinePos];
-    [wsf.scrollview setContentOffset:shouldPoint animated:YES];
+    [self.scrollview setContentOffset:shouldPoint animated:YES];
 }
+#pragma mark Event Setting
+- (void)buttonsEventSetting {
+    __weak typeof (self)wsf = self;
+    for( YUHoriElementButton *button_i in self.buttons ) {
+        //设置第i个button的tap事件
+        button_i.onTap = ^(YUHoriElementButton *sender, int pos) {
+            [wsf buttonMoveToPos:pos sender:sender needNotify:YES];
+        };
+    }
+}
+- (void)buttonMoveToPos:(int)pos sender:(YUHoriElementButton *)sender needNotify:(BOOL)needNotify {
+    
+    self.curPos = pos;
+    if( self.onPosChange  && needNotify ) {
+        // 位置放生改变，通知外部
+        NSString *title = self.titles[pos];
+        self.onPosChange(sender, pos,title);
+    }
+    self.curButton.titleLabel.textColor = cOff;
+    self.curButton = sender;
+    self.curButton.titleLabel.textColor = cOn;
+    if( self.scrollview.contentSize.width > self.scrollview.frame.size.width ) {
+        [self moveToButtonWithAnimate:sender];
+    }else{
+        [self updateUnderLinePos];
+    }
+    
+}
+
 #pragma mark Lazy Load
 - (UIScrollView *)scrollview {
     if( !_scrollview ) {
@@ -261,7 +271,4 @@
     }
     return _movLine;
 }
-
-
-
 @end
