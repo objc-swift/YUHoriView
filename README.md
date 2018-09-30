@@ -18,12 +18,13 @@ Masonry
 ### 快速上手（纯代码方式）
 
 ``` objective-c
-     YUHoriView *view =[[YUHoriView alloc]initWithFrame:CGRectMake(20, self.view.frame.size.height - 70, 200, 50)];
+    CGRect r0 = CGRectMake(20, self.view.frame.size.height - 70, 200, 50);
+    YUHoriView *view =[[YUHoriView alloc]initWithFrame:r0];
     view.titles =  @[@"纯代码构造",@"计生用品避孕套",@"美妆",@"男装",@"童装",@"男鞋",@"厨房用品"];
     view.onPosChange = ^(YUHoriElementButton *sender, int pos, NSString *title) {
         NSLog(@"pos: %d ,title :%@",pos,title);
     };
-    [view refresh]; 
+    [view refresh];
     [self.view addSubview:view];
 ```
 
